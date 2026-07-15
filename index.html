@@ -47,6 +47,10 @@
     <footer class="toolbar" id="editorToolbar">
       <div class="stats" aria-live="polite"><span id="charCount">0 字</span><i></i><span id="wordCount">0 詞</span></div>
       <div class="actions">
+        <button class="tool-button ai-tool-button" id="aiButton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.4 4.1L17.5 8.5l-4.1 1.4L12 14l-1.4-4.1-4.1-1.4 4.1-1.4L12 3Z"/><path d="m18.5 14 .8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg>
+          <span>AI 工具</span>
+        </button>
         <button class="tool-button" id="copyButton">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
           <span>複製</span>
@@ -103,6 +107,79 @@
     </div>
     <button class="delete-tab-btn" id="deleteTabButton" style="display: none;">刪除此分頁</button>
   </dialog>
+  <dialog id="aiDialog" class="ai-dialog">
+    <div class="dialog-mark">✦</div>
+    <h2>AI 文字工具</h2>
+    <p id="aiSelectionSummary">請先在編輯器選取要處理的文字。</p>
+    <div class="dialog-form">
+      <div class="form-group">
+        <label for="aiAction">功能</label>
+        <select id="aiAction">
+          <option value="translate">翻譯</option>
+          <option value="polish">文字優化</option>
+          <option value="comment">程式碼註解</option>
+        </select>
+      </div>
+      <div class="form-group" id="aiLanguageGroup">
+        <label for="aiTargetLanguage">目標語言</label>
+        <select id="aiTargetLanguage">
+          <option value="Traditional Chinese">繁體中文</option>
+          <option value="English">英文</option>
+          <option value="Vietnamese">越南文</option>
+        </select>
+      </div>
+      <div class="form-group" id="aiPolishGroup" hidden>
+        <label for="aiPolishStyle">優化方式</label>
+        <select id="aiPolishStyle">
+          <option value="natural">自然流暢</option>
+          <option value="formal">正式專業</option>
+          <option value="concise">精簡清楚</option>
+          <option value="proofread">只修正文法與錯字</option>
+        </select>
+      </div>
+      <div class="form-group" id="aiOutputLanguageGroup" hidden>
+        <label for="aiOutputLanguage">輸出語言</label>
+        <select id="aiOutputLanguage">
+          <option value="Traditional Chinese">繁體中文</option>
+          <option value="English">英文</option>
+          <option value="Vietnamese">越南文</option>
+        </select>
+      </div>
+      <button type="button" class="ai-settings-toggle" id="aiSettingsToggle">API 設定</button>
+      <div class="ai-settings" id="aiSettings" hidden>
+        <div class="form-group">
+          <label for="aiApiKey">Gemini API Key</label>
+          <input type="password" id="aiApiKey" autocomplete="off" placeholder="貼上你的 API Key" />
+        </div>
+        <label class="remember-key"><input type="checkbox" id="aiRememberKey" /> 記住 API Key（儲存在此瀏覽器）</label>
+        <div class="form-group">
+          <label for="aiModel">模型</label>
+          <input type="text" id="aiModel" value="gemini-2.5-flash" autocomplete="off" />
+        </div>
+        <small>未勾選時，Key 只保留到關閉此分頁為止。</small>
+      </div>
+      <div class="ai-error" id="aiError" role="alert" hidden></div>
+    </div>
+    <div class="dialog-actions">
+      <button id="cancelAi">取消</button>
+      <button class="confirm" id="runAi">開始處理</button>
+    </div>
+  </dialog>
+  <dialog id="aiPreviewDialog" class="ai-dialog ai-preview-dialog">
+    <div class="dialog-mark">✓</div>
+    <h2>確認 AI 結果</h2>
+    <div class="ai-preview-grid">
+      <label>原文<textarea id="aiOriginal" readonly></textarea></label>
+      <label>處理結果<textarea id="aiResult"></textarea></label>
+    </div>
+    <div class="dialog-actions ai-preview-actions">
+      <button id="cancelAiPreview">取消</button>
+      <button id="copyAiResult">複製結果</button>
+      <button class="confirm" id="applyAiResult">取代選取文字</button>
+    </div>
+  </dialog>
+  <script src="ai-service.js"></script>
   <script src="app.js"></script>
+  <script src="ai-ui.js"></script>
 </body>
 </html>

@@ -185,6 +185,7 @@ function switchTab(tabId, { saveCurrent = true } = {}) {
   const isCode = tab.language !== 'text';
   document.querySelector('#editorPanel').classList.toggle('code-mode', isCode);
   document.querySelector('#editorPanel').dataset.codeTheme = tab.codeTheme;
+  document.querySelector('#editorPanel').dataset.language = tab.language;
   editor.spellcheck = !isCode;
   updateHighlight();
 
