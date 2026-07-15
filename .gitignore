@@ -1,0 +1,6 @@
+.agents/
+.git/
+.vscode/
+.idea/
+*.log
+node_modules/

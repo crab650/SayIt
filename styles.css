@@ -1,0 +1,243 @@
+:root{color-scheme:light;--bg:#f4f0e8;--paper:#faf8f3;--ink:#272a25;--muted:#8b8b80;--line:#dcd6cb;--accent:#df5b3f;--shadow:rgba(62,52,41,.09);--safe-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink)}body{font-family:"Noto Sans TC",system-ui,sans-serif;transition:background .25s,color .25s}.grain{position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E")}.app-shell{width:min(1120px,calc(100% - 40px));min-height:calc(100dvh - 40px);margin:20px auto;background:var(--paper);border:1px solid var(--line);box-shadow:0 20px 70px var(--shadow);display:grid;grid-template-rows:72px 1fr 68px;position:relative}.topbar,.toolbar{display:flex;align-items:center;padding:0 30px}.topbar{border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font-family:"DM Mono",monospace;font-weight:500;letter-spacing:-.04em;font-size:18px}.brand-mark{display:grid;place-items:center;width:28px;height:28px;background:var(--ink);color:var(--paper);border-radius:50%;font-size:14px}.save-state{margin-left:auto;margin-right:18px;color:var(--muted);font-family:"DM Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.07em}.save-state span{display:inline-block;width:6px;height:6px;border-radius:50%;background:#75a66f;margin-right:7px}.save-state.saving span{background:#d8a348}.icon-button,.tool-button{border:0;background:none;color:var(--muted);cursor:pointer}.icon-button{width:38px;height:38px;padding:9px;border-radius:50%}.icon-button:hover,.tool-button:hover{background:var(--bg);color:var(--ink)}svg{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.editor-wrap{padding:clamp(40px,7vw,88px) clamp(28px,10vw,132px) 30px;display:flex;flex-direction:column;min-height:0}.eyebrow{font:500 10px/1 "DM Mono",monospace;letter-spacing:.18em;color:var(--accent);margin:0 0 24px}.editor-wrap textarea{flex:1;width:100%;min-height:360px;padding:0;border:0;outline:0;resize:none;background:transparent;color:var(--ink);font:400 clamp(22px,2.5vw,32px)/1.75 "Noto Sans TC",sans-serif;letter-spacing:.015em;caret-color:var(--accent)}textarea::placeholder{color:color-mix(in srgb,var(--muted) 50%,transparent)}.toolbar{border-top:1px solid var(--line);justify-content:space-between}.stats{display:flex;align-items:center;gap:10px;color:var(--muted);font:400 11px/1 "DM Mono",monospace}.stats i{width:3px;height:3px;background:var(--line);border-radius:50%}.actions{display:flex;gap:4px}.tool-button{display:flex;align-items:center;gap:7px;padding:9px 12px;border-radius:8px;font:500 12px/1 "Noto Sans TC",sans-serif}.tool-button svg{width:16px;height:16px}.tool-button.danger:hover{color:var(--accent)}.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:99px;font-size:12px;opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}dialog{border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:28px;width:min(360px,calc(100% - 36px));box-shadow:0 24px 80px rgba(0,0,0,.2);text-align:center}dialog::backdrop{background:rgba(24,22,19,.36);backdrop-filter:blur(3px)}.dialog-mark{margin:auto;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font:500 18px "DM Mono"}dialog h2{font-size:18px;margin:14px 0 6px}dialog p{color:var(--muted);font-size:13px;margin:0 0 24px}.dialog-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dialog-actions button{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:9px;padding:11px;cursor:pointer}.dialog-actions .confirm{background:var(--accent);border-color:var(--accent);color:white}
+[data-theme="dark"]{color-scheme:dark;--bg:#181a17;--paper:#20231f;--ink:#eceae2;--muted:#92968c;--line:#363a34;--accent:#f27657;--shadow:rgba(0,0,0,.22)}
+@media(max-width:640px){.app-shell{width:100%;min-height:100dvh;margin:0;border:0;grid-template-rows:62px 1fr auto}.topbar{padding:0 18px}.brand{font-size:16px}.save-state{margin-right:8px;font-size:9px}.editor-wrap{padding:36px 22px 120px}.eyebrow{margin-bottom:20px}.editor-wrap textarea{min-height:45vh;font-size:23px;line-height:1.65}.toolbar{position:fixed;z-index:3;bottom:0;left:0;right:0;display:block;padding:0 12px calc(8px + var(--safe-bottom));background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(16px);box-shadow:0 -10px 30px var(--shadow)}.stats{height:30px;justify-content:center;border-bottom:1px solid var(--line)}.actions{height:54px;justify-content:space-around}.tool-button{flex:1;justify-content:center;flex-direction:column;gap:4px;padding:6px;font-size:10px}.tool-button svg{width:18px;height:18px}.toast{bottom:calc(104px + var(--safe-bottom))}}
+@media(display-mode:standalone) and (max-width:640px){.topbar{padding-top:env(safe-area-inset-top);height:calc(62px + env(safe-area-inset-top))}}
+
+/* Pages and phrasebook */
+.app-shell{grid-template-rows:72px 48px 1fr 68px}.page-tabs{display:flex;align-items:stretch;padding:0 30px;border-bottom:1px solid var(--line);gap:26px}.page-tab{border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:0 2px;font:500 12px "Noto Sans TC";cursor:pointer}.page-tab span{font:10px "DM Mono";margin-right:6px;opacity:.65}.page-tab.active{color:var(--ink);border-color:var(--accent)}.editor-wrap{padding-top:clamp(36px,6vw,70px)}.editor-wrap textarea{font-size:clamp(17px,1.8vw,22px);line-height:1.8}.phrases-wrap{min-height:0;overflow:auto;padding:40px clamp(28px,7vw,80px)}.phrases-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}.phrases-heading .eyebrow{margin-bottom:10px}.phrases-heading h1{margin:0;font-size:22px;font-weight:500}.add-button{border:0;border-radius:9px;background:var(--ink);color:var(--paper);padding:11px 15px;font:500 12px "Noto Sans TC";cursor:pointer}.add-button span{margin-right:4px}.phrase-form{border:1px solid var(--line);background:var(--bg);padding:22px;border-radius:12px;margin-bottom:28px}.phrase-form label{display:flex;flex-direction:column;gap:7px;color:var(--muted);font:500 10px "DM Mono","Noto Sans TC";letter-spacing:.06em}.phrase-form input,.phrase-form textarea{border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:10px 12px;outline:none;font:400 13px/1.6 "Noto Sans TC";resize:vertical}.phrase-form input:focus,.phrase-form textarea:focus{border-color:var(--accent)}.form-top,.translations{display:grid;grid-template-columns:160px 1fr;gap:14px;margin-bottom:14px}.translations{grid-template-columns:1fr 1fr;margin-top:14px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.form-actions button{border:1px solid var(--line);border-radius:7px;background:transparent;color:var(--ink);padding:8px 16px;cursor:pointer}.form-actions button[type=submit]{background:var(--accent);border-color:var(--accent);color:white}.phrase-list{display:grid;gap:12px}.phrase-card{position:relative;border:1px solid var(--line);border-radius:12px;padding:18px 48px 18px 20px;background:var(--paper)}.phrase-meta{display:flex;gap:10px;align-items:center;color:var(--muted);font:10px "DM Mono";margin-bottom:10px}.phrase-meta b{color:var(--accent);font:500 11px "Noto Sans TC"}.phrase-main{font-size:15px;line-height:1.65;margin:0 0 12px}.phrase-translations{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid var(--line);padding-top:12px}.phrase-translations small{display:block;color:var(--muted);font:9px "DM Mono";margin-bottom:5px}.phrase-translations p{margin:0;font-size:12px;line-height:1.6}.phrase-translations .missing{color:var(--muted);font-style:italic}.delete-phrase{position:absolute;right:12px;top:12px;border:0;background:none;color:var(--muted);cursor:pointer;font-size:17px}.delete-phrase:hover{color:var(--accent)}.empty-state{text-align:center;color:var(--muted);padding:60px 20px}.empty-state span{font:52px Georgia;color:var(--line)}.empty-state p{margin:0 0 5px;color:var(--ink);font-size:14px}.empty-state small{font-size:11px}.phrases-mode .app-shell{grid-template-rows:72px 48px 1fr}.phrases-mode #editorToolbar{display:none}
+@media(max-width:640px){.app-shell{grid-template-rows:62px 44px 1fr auto}.page-tabs{padding:0 18px;justify-content:space-around;gap:0}.page-tab{flex:1}.editor-wrap{padding-top:30px}.editor-wrap textarea{font-size:17px;line-height:1.75}.phrases-wrap{padding:26px 18px 35px}.phrases-heading{align-items:center}.phrases-heading h1{font-size:18px}.add-button{padding:9px 11px}.phrase-form{padding:15px}.form-top,.translations{grid-template-columns:1fr}.phrase-card{padding:16px 42px 16px 16px}.phrase-translations{grid-template-columns:1fr;gap:10px}.phrases-mode .app-shell{grid-template-rows:62px 44px 1fr}.phrases-mode .toast{bottom:28px}}
+
+/* Match the default text size of Windows Notepad. */
+.editor-wrap textarea{font-size:11pt}
+
+/* Use the full window on desktop, including the installed Windows app. */
+@media(min-width:641px){.app-shell{width:100%;min-height:100dvh;margin:0;border:0}}
+
+/* Only the editor belonging to the selected tab is visible. */
+.page-panel[hidden]{display:none!important}
+
+/* Dynamic Tabs & Custom Dialog Layout */
+.page-tabs {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+  justify-content: space-between;
+}
+.tabs-scroll-container {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  height: 48px;
+}
+.tabs-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+.add-tab-btn {
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.add-tab-btn:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+.add-tab-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.page-tab {
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--muted);
+  padding: 0 2px;
+  font: 500 12px "Noto Sans TC";
+  cursor: pointer;
+  height: 100%;
+  position: relative;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+.page-tab.active {
+  color: var(--ink);
+  border-color: var(--tab-accent, var(--accent));
+}
+.page-tab .tab-number {
+  color: var(--tab-accent, var(--accent));
+  opacity: .9;
+}
+.page-tab span {
+  font: 10px "DM Mono";
+  margin-right: 6px;
+  opacity: 0.65;
+}
+.page-tab .tab-name {
+  font: 500 12px "Noto Sans TC";
+}
+.page-tab .tab-edit {
+  display: flex;
+  align-items: center;
+  margin-left: 6px;
+  opacity: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--muted);
+  transition: opacity 0.2s, color 0.2s;
+}
+.page-tab:hover .tab-edit,
+.page-tab.active .tab-edit {
+  opacity: 0.5;
+}
+.page-tab .tab-edit:hover {
+  opacity: 1;
+  color: var(--ink);
+}
+.page-tab .tab-edit svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2;
+}
+
+/* Dialog Styles */
+.dialog-form {
+  text-align: left;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  font-family: "Noto Sans TC", sans-serif;
+  letter-spacing: .05em;
+}
+.form-group input[type="text"] {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 10px 12px;
+  outline: none;
+  font-size: 13px;
+  transition: border-color .2s;
+}
+.form-group input[type="text"]:focus {
+  border-color: var(--accent);
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.form-group select{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:10px 9px;outline:none;font:400 12px "Noto Sans TC",sans-serif}.form-group select:focus{border-color:var(--accent)}
+.color-presets {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.color-preset {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform .2s, border-color .2s;
+  padding: 0;
+}
+.color-preset:hover {
+  transform: scale(1.1);
+}
+.color-preset.active {
+  border-color: var(--ink);
+  transform: scale(1.1);
+}
+.custom-color-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+.custom-color-wrap input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+.custom-color-wrap input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.custom-color-wrap input[type="color"]::-webkit-color-swatch {
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  padding: 0;
+}
+.custom-color-wrap input[type="color"]::-moz-color-swatch {
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+.color-hex-label {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.delete-tab-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  background: transparent;
+  border: 0;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color .2s;
+}
+.delete-tab-btn:hover {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+@media(max-width:640px) {
+  .page-tabs {
+    padding: 0 12px;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .tabs-scroll-container {
+    gap: 12px;
+  }
+  .page-tab {
+    flex: none;
+  }
+}
+
+/* Dependency-free code editor overlay. */
+.editor-surface{position:relative;flex:1;min-height:360px;overflow:hidden}.editor-surface textarea,.editor-surface pre{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;overflow:auto;white-space:pre;tab-size:2}.editor-surface pre{display:none;pointer-events:none}.code-mode{padding:24px clamp(18px,5vw,54px)}.code-mode .eyebrow{margin-bottom:14px}.code-mode .editor-surface{border:1px solid var(--code-border);border-radius:10px;background:var(--code-bg)}.code-mode .editor-surface textarea,.code-mode .editor-surface pre{display:block;padding:18px 20px;font:400 13px/1.7 "DM Mono",Consolas,monospace;letter-spacing:0}.code-mode .editor-surface textarea{z-index:2;resize:none;background:transparent;color:transparent;caret-color:var(--code-text);-webkit-text-fill-color:transparent}.code-mode .editor-surface textarea::selection{background:var(--code-selection)}.code-mode .editor-surface pre{z-index:1;color:var(--code-text)}.code-mode[data-code-theme="midnight"]{--code-bg:#171a22;--code-text:#d8dee9;--code-border:#303646;--code-selection:rgba(92,133,181,.4);--code-keyword:#c792ea;--code-string:#c3e88d;--code-comment:#697386;--code-number:#f78c6c}.code-mode[data-code-theme="forest"]{--code-bg:#16201b;--code-text:#d6e2d9;--code-border:#30463a;--code-selection:rgba(117,166,111,.4);--code-keyword:#82cfff;--code-string:#b8d982;--code-comment:#70877a;--code-number:#e6b566}.code-mode[data-code-theme="paper"]{--code-bg:#f7f4ec;--code-text:#31352f;--code-border:#d8d1c3;--code-selection:rgba(92,133,181,.25);--code-keyword:#7a4ca0;--code-string:#487b39;--code-comment:#929080;--code-number:#b45138}.token-keyword{color:var(--code-keyword);font-weight:500}.token-string{color:var(--code-string)}.token-comment{color:var(--code-comment);font-style:italic}.token-number{color:var(--code-number)}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}.code-mode{padding:20px 12px 120px}.code-mode .editor-surface{min-height:50vh}.code-mode .editor-surface textarea,.code-mode .editor-surface pre{font-size:12px;padding:14px}}
+.code-mode .editor-surface textarea::placeholder{-webkit-text-fill-color:var(--code-comment);color:var(--code-comment)}.code-mode .editor-surface pre{scrollbar-width:none}.code-mode .editor-surface pre::-webkit-scrollbar{display:none}

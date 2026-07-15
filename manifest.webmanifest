@@ -1,0 +1,1 @@
+{"name":"Say It — 寫下此刻","short_name":"Say It","description":"一個安靜、快速、會自動儲存的隨手寫作空間。","id":"./","start_url":"./index.html","scope":"./","display":"standalone","background_color":"#f4f0e8","theme_color":"#f4f0e8","lang":"zh-Hant","icons":[{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}

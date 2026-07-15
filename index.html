@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e8" />
+  <meta name="description" content="一個安靜、快速、會自動儲存的隨手寫作空間。" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Say It — 寫下此刻</title>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Say It 首頁">
+        <span class="brand-mark">S</span>
+        <span>say it</span>
+      </a>
+      <div class="save-state" id="saveState" role="status"><span></span> 已儲存</div>
+      <button class="icon-button" id="themeButton" aria-label="切換深色模式" title="切換主題">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.2A8.5 8.5 0 0 1 8.8 3.8 8.5 8.5 0 1 0 20.2 15.2Z"/></svg>
+      </button>
+    </header>
+
+    <nav class="page-tabs" aria-label="筆記分類">
+      <div class="tabs-scroll-container" id="tabsContainer">
+        <!-- Dynamic tabs will be inserted here -->
+      </div>
+      <button class="add-tab-btn" id="addTabButton" aria-label="新增分頁" title="新增分頁">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
+    </nav>
+
+    <section class="editor-wrap page-panel active" id="editorPanel">
+      <p class="eyebrow" id="editorEyebrow">YOUR QUIET CORNER</p>
+      <div class="editor-surface">
+        <pre id="highlightLayer" aria-hidden="true"></pre>
+        <textarea id="editor" aria-label="文字編輯區" placeholder="寫點什麼吧…" spellcheck="true" autofocus></textarea>
+      </div>
+    </section>
+
+    <footer class="toolbar" id="editorToolbar">
+      <div class="stats" aria-live="polite"><span id="charCount">0 字</span><i></i><span id="wordCount">0 詞</span></div>
+      <div class="actions">
+        <button class="tool-button" id="copyButton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+          <span>複製</span>
+        </button>
+        <button class="tool-button" id="downloadButton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+          <span>匯出</span>
+        </button>
+        <button class="tool-button danger" id="clearButton">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5"/></svg>
+          <span>清除</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <dialog id="clearDialog">
+    <div class="dialog-mark">?</div>
+    <h2>清除所有內容？</h2>
+    <p>這個動作無法復原。</p>
+    <div class="dialog-actions">
+      <button id="cancelClear">取消</button>
+      <button class="confirm" id="confirmClear">清除</button>
+    </div>
+  </dialog>
+  <dialog id="tabDialog">
+    <div class="dialog-mark" id="tabDialogTitleMark">+</div>
+    <h2 id="tabDialogTitle">新增分頁</h2>
+    <div class="dialog-form">
+      <div class="form-group">
+        <label for="tabNameInput">分頁名稱</label>
+        <input type="text" id="tabNameInput" placeholder="例如：靈感、讀書筆記" maxlength="10" required />
+      </div>
+      <div class="form-group">
+        <label for="tabEyebrowInput">副標題 (英文)</label>
+        <input type="text" id="tabEyebrowInput" placeholder="例如：CREATIVE SPARKS" maxlength="25" />
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="tabLanguageInput">內容模式</label><select id="tabLanguageInput"><option value="text">一般文字 (.txt)</option><option value="python">Python (.py)</option><option value="sql">SQL (.sql)</option><option value="typescript">TypeScript (.ts)</option><option value="csharp">C# (.cs)</option></select></div>
+        <div class="form-group" id="codeThemeGroup"><label for="tabCodeThemeInput">程式碼配色</label><select id="tabCodeThemeInput"><option value="midnight">Midnight</option><option value="forest">Forest</option><option value="paper">Paper</option></select></div>
+      </div>
+      <div class="form-group">
+        <label>主題顏色</label>
+        <div class="color-presets" id="colorPresets"></div>
+        <div class="custom-color-wrap">
+          <input type="color" id="tabColorInput" value="#df5b3f" />
+          <span class="color-hex-label" id="colorHexLabel">#df5b3f</span>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button id="cancelTab">取消</button>
+      <button class="confirm" id="saveTab">儲存</button>
+    </div>
+    <button class="delete-tab-btn" id="deleteTabButton" style="display: none;">刪除此分頁</button>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+</html>
