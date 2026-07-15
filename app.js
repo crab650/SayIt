@@ -1,6 +1,7 @@
 const editor = document.querySelector('#editor');
 const editorEyebrow = document.querySelector('#editorEyebrow');
 const saveState = document.querySelector('#saveState');
+const saveStateText = document.querySelector('#saveState .state-text');
 const charCount = document.querySelector('#charCount');
 const wordCount = document.querySelector('#wordCount');
 const toast = document.querySelector('#toast');
@@ -132,7 +133,7 @@ function saveCurrentContent() {
   if (!activeTabId) return;
   localStorage.setItem(getStorageKey(activeTabId), editor.value);
   saveState.classList.remove('saving');
-  saveState.lastChild.textContent = ' 已儲存';
+  saveStateText.textContent = '已儲存';
 }
 
 function showToast(message) {
@@ -219,7 +220,7 @@ editor.addEventListener('input', () => {
   updateStats();
   updateHighlight();
   saveState.classList.add('saving');
-  saveState.lastChild.textContent = ' 儲存中';
+  saveStateText.textContent = '儲存中';
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => saveCurrentContent(), 450);
 });
@@ -415,11 +416,17 @@ deleteTabButton.onclick = () => {
 // Theme Switching
 const preferred = localStorage.getItem(THEME_KEY) || ((matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
 document.documentElement.dataset.theme = preferred;
+const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+if (metaThemeColor) {
+  metaThemeColor.content = preferred === 'dark' ? '#181a17' : '#f4f0e8';
+}
 document.querySelector('#themeButton').onclick = () => {
   const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = next;
   localStorage.setItem(THEME_KEY, next);
-  document.querySelector('meta[name="theme-color"]').content = next === 'dark' ? '#181a17' : '#f4f0e8';
+  if (metaThemeColor) {
+    metaThemeColor.content = next === 'dark' ? '#181a17' : '#f4f0e8';
+  }
 };
 
 // Date-Time Insertion
