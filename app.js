@@ -7,6 +7,8 @@ const wordCount = document.querySelector('#wordCount');
 const toast = document.querySelector('#toast');
 const tabsContainer = document.querySelector('#tabsContainer');
 const highlightLayer = document.querySelector('#highlightLayer');
+const markdownPreview = document.querySelector('#markdownPreview');
+const markdownViewSwitch = document.querySelector('#markdownViewSwitch');
 
 const THEME_KEY = 'sayit-theme';
 const TABS_KEY = 'sayit-custom-tabs-v2';
@@ -31,9 +33,24 @@ const DEFAULT_TABS = [
 ];
 
 const HEX_COLOR_PATTERN = /^#[0-9a-f]{6}$/i;
-const LANGUAGES = new Set(['text', 'python', 'sql', 'typescript', 'csharp']);
+const LANGUAGES = new Set(['text', 'markdown', 'python', 'sql', 'typescript', 'csharp']);
 const CODE_THEMES = new Set(['midnight', 'forest', 'paper']);
-const EXTENSIONS = { text: 'txt', python: 'py', sql: 'sql', typescript: 'ts', csharp: 'cs' };
+const EXTENSIONS = { text: 'txt', markdown: 'md', python: 'py', sql: 'sql', typescript: 'ts', csharp: 'cs' };
+let markdownView = localStorage.getItem('sayit-markdown-view') || 'edit';
+if (!['edit', 'preview', 'split'].includes(markdownView)) markdownView = 'edit';
+
+function updateMarkdownPreview() {
+  markdownPreview.innerHTML = window.SayItMarkdown.render(editor.value);
+}
+
+function applyMarkdownView() {
+  const tab = tabs.find(t => t.id === activeTabId);
+  const isMarkdown = tab?.language === 'markdown';
+  markdownViewSwitch.hidden = !isMarkdown;
+  document.querySelector('#editorPanel').dataset.markdownView = isMarkdown ? markdownView : '';
+  markdownViewSwitch.querySelectorAll('button').forEach(button => button.classList.toggle('active', button.dataset.view === markdownView));
+  if (isMarkdown) updateMarkdownPreview();
+}
 
 function normalizeTabs(value) {
   if (!Array.isArray(value) || value.length === 0) {
@@ -115,7 +132,7 @@ function escapeHtml(value) {
 
 function updateHighlight() {
   const tab = tabs.find(t => t.id === activeTabId);
-  if (!tab || tab.language === 'text') return void (highlightLayer.textContent = '');
+  if (!tab || !TOKEN_RULES[tab.language]) return void (highlightLayer.textContent = '');
   const source = TOKEN_RULES[tab.language];
   const regex = new RegExp(source.source, source.flags);
   let output = '', cursor = 0;
@@ -182,12 +199,13 @@ function switchTab(tabId, { saveCurrent = true } = {}) {
   editor.value = loadTabContent(tab.id);
   editor.placeholder = tab.placeholder || '寫點什麼吧…';
   editorEyebrow.textContent = tab.eyebrow || tab.name.toUpperCase();
-  const isCode = tab.language !== 'text';
+  const isCode = !['text', 'markdown'].includes(tab.language);
   document.querySelector('#editorPanel').classList.toggle('code-mode', isCode);
   document.querySelector('#editorPanel').dataset.codeTheme = tab.codeTheme;
   document.querySelector('#editorPanel').dataset.language = tab.language;
   editor.spellcheck = !isCode;
   updateHighlight();
+  applyMarkdownView();
 
   // Update tabs highlight
   document.querySelectorAll('.page-tab').forEach(btn => {
@@ -220,6 +238,7 @@ tabsContainer.onclick = (e) => {
 editor.addEventListener('input', () => {
   updateStats();
   updateHighlight();
+  if (tabs.find(t => t.id === activeTabId)?.language === 'markdown') updateMarkdownPreview();
   saveState.classList.add('saving');
   saveStateText.textContent = '儲存中';
   clearTimeout(saveTimer);
@@ -260,9 +279,20 @@ document.querySelector('#confirmClear').onclick = () => {
   editor.value = '';
   saveCurrentContent();
   updateStats();
+  updateHighlight();
+  if (tabs.find(t => t.id === activeTabId)?.language === 'markdown') updateMarkdownPreview();
   clearDialog.close();
   editor.focus();
   showToast('內容已清除');
+};
+
+markdownViewSwitch.onclick = event => {
+  const button = event.target.closest('button[data-view]');
+  if (!button) return;
+  markdownView = button.dataset.view;
+  localStorage.setItem('sayit-markdown-view', markdownView);
+  applyMarkdownView();
+  if (markdownView !== 'preview') editor.focus();
 };
 
 // Tab configuration Dialog
@@ -281,7 +311,7 @@ const colorPresetsContainer = document.querySelector('#colorPresets');
 let editingTabId = null;
 
 function updateCodeOptions() {
-  codeThemeGroup.hidden = tabLanguageInput.value === 'text';
+  codeThemeGroup.hidden = ['text', 'markdown'].includes(tabLanguageInput.value);
 }
 tabLanguageInput.onchange = updateCodeOptions;
 
@@ -443,7 +473,7 @@ function insertDateTime() {
 
 document.addEventListener('keydown', e => {
   const currentTab = tabs.find(t => t.id === activeTabId);
-  if (e.key === 'Tab' && document.activeElement === editor && currentTab?.language !== 'text') {
+  if (e.key === 'Tab' && document.activeElement === editor && TOKEN_RULES[currentTab?.language]) {
     e.preventDefault();
     editor.setRangeText('  ', editor.selectionStart, editor.selectionEnd, 'end');
     editor.dispatchEvent(new Event('input', { bubbles: true }));

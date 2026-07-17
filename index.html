@@ -37,10 +37,18 @@
     </nav>
 
     <section class="editor-wrap page-panel active" id="editorPanel">
-      <p class="eyebrow" id="editorEyebrow">YOUR QUIET CORNER</p>
+      <div class="editor-heading">
+        <p class="eyebrow" id="editorEyebrow">YOUR QUIET CORNER</p>
+        <div class="markdown-view-switch" id="markdownViewSwitch" hidden aria-label="Markdown 顯示模式">
+          <button type="button" data-view="edit" class="active">編輯</button>
+          <button type="button" data-view="preview">預覽</button>
+          <button type="button" data-view="split">並排</button>
+        </div>
+      </div>
       <div class="editor-surface">
         <pre id="highlightLayer" aria-hidden="true"></pre>
         <textarea id="editor" aria-label="文字編輯區" placeholder="寫點什麼吧…" spellcheck="true" autofocus></textarea>
+        <article id="markdownPreview" class="markdown-preview" aria-label="Markdown 預覽"></article>
       </div>
     </section>
 
@@ -89,7 +97,7 @@
         <input type="text" id="tabEyebrowInput" placeholder="例如：CREATIVE SPARKS" maxlength="25" />
       </div>
       <div class="form-row">
-        <div class="form-group"><label for="tabLanguageInput">內容模式</label><select id="tabLanguageInput"><option value="text">一般文字 (.txt)</option><option value="python">Python (.py)</option><option value="sql">SQL (.sql)</option><option value="typescript">TypeScript (.ts)</option><option value="csharp">C# (.cs)</option></select></div>
+        <div class="form-group"><label for="tabLanguageInput">內容模式</label><select id="tabLanguageInput"><option value="text">一般文字 (.txt)</option><option value="markdown">Markdown (.md)</option><option value="python">Python (.py)</option><option value="sql">SQL (.sql)</option><option value="typescript">TypeScript (.ts)</option><option value="csharp">C# (.cs)</option></select></div>
         <div class="form-group" id="codeThemeGroup"><label for="tabCodeThemeInput">程式碼配色</label><select id="tabCodeThemeInput"><option value="midnight">Midnight</option><option value="forest">Forest</option><option value="paper">Paper</option></select></div>
       </div>
       <div class="form-group">
@@ -178,6 +186,7 @@
       <button class="confirm" id="applyAiResult">取代選取文字</button>
     </div>
   </dialog>
+  <script src="markdown-renderer.js"></script>
   <script src="ai-service.js"></script>
   <script src="app.js"></script>
   <script src="ai-ui.js"></script>

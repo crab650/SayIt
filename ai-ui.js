@@ -61,7 +61,7 @@
     }
     selection = { start, end, text: editor.value.slice(start, end), tabId: localStorage.getItem('sayit-active-tab-id-v2') };
     document.querySelector('#aiSelectionSummary').textContent = `已選取 ${[...selection.text].length.toLocaleString()} 個字元`;
-    const isCode = panel.dataset.language && panel.dataset.language !== 'text';
+    const isCode = panel.dataset.language && !['text', 'markdown'].includes(panel.dataset.language);
     action.value = isCode ? 'comment' : 'translate';
     loadSettings();
     updateFields();
