@@ -4,3 +4,9 @@
 .idea/
 *.log
 node_modules/
+instance/
+*.db
+*.db-shm
+*.db-wal
+__pycache__/
+.pytest_cache/
